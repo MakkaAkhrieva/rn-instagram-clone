@@ -1,5 +1,5 @@
 import React from 'react';
-import {Screens} from '../screens/Screens';
+import {SCREENS} from '../screens/Screens';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeScreen} from '../../screens/main/HomeScreen';
 import {SearchScreen} from '../../screens/main/SearchScreen';
@@ -15,23 +15,21 @@ import {IconSvgBottomLikes} from '../../assets/bottomtab/IconSvgBottomLikes';
 export const BottomTab = () => {
   const Tab = createBottomTabNavigator();
 
+  const tabBarHomeIcon = ({focused}) => {
+    return focused ? <IconSvgBottomHomeActive /> : <IconSvgBottomHome />;
+  };
+
   return (
     <Tab.Navigator screenOptions={{headerShown: false, tabBarShowLabel: false}}>
       <Tab.Screen
-        name={Screens.HOME}
+        name={SCREENS.HOME}
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused}) => {
-            return focused ? (
-              <IconSvgBottomHomeActive />
-            ) : (
-              <IconSvgBottomHome />
-            );
-          },
+          tabBarIcon: tabBarHomeIcon,
         }}
       />
       <Tab.Screen
-        name={Screens.SEARCH}
+        name={SCREENS.SEARCH}
         component={SearchScreen}
         options={{
           tabBarIcon: ({focused}) => {
@@ -40,7 +38,7 @@ export const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name={Screens.VIDEO}
+        name={SCREENS.VIDEO}
         component={VideoScreen}
         options={{
           tabBarIcon: ({focused}) => {
@@ -48,9 +46,8 @@ export const BottomTab = () => {
           },
         }}
       />
-
       <Tab.Screen
-        name={Screens.NOTIFICATION}
+        name={SCREENS.NOTIFICATION}
         component={NotificationScreen}
         options={{
           tabBarIcon: ({focused}) => {
@@ -58,9 +55,8 @@ export const BottomTab = () => {
           },
         }}
       />
-
       <Tab.Screen
-        name={Screens.PROFILE}
+        name={SCREENS.PROFILE}
         component={ProfileScreen}
         options={{
           tabBarIcon: ({focused}) => {

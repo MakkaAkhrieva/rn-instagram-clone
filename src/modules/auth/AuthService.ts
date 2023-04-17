@@ -10,7 +10,6 @@ export default class AuthService {
 
   login = async (dataLogin: ILoginRequest): Promise<ILoginResponse> => {
     const {data} = await this.authApi.login(dataLogin);
-
     return data;
   };
 

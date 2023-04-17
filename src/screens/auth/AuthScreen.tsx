@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import Input from '../../components/ui/Input';
-import {Colors} from '../../styles/Colors';
 import {Button} from '../../components/ui/Button';
 import {useForm} from 'react-hook-form';
 import {observer} from 'mobx-react';
 import {useRootStore} from '../../base/hooks/useRootStore';
 import {LoaderFlex} from '../../components/ui/Loader';
+import {auth_screen_styles} from '../styles';
 
-enum EAuthForm {
+enum EAUTHFORM {
   USERNAME = 'username',
   PASSWORD = 'password',
 }
@@ -33,8 +33,8 @@ export const AuthScreen = observer(() => {
   };
 
   useEffect(() => {
-    register(EAuthForm.USERNAME, {required: true});
-    register(EAuthForm.PASSWORD, {required: true, minLength: 6});
+    register(EAUTHFORM.USERNAME, {required: true});
+    register(EAUTHFORM.PASSWORD, {required: true, minLength: 6});
   }, []);
 
   if (authStore.loader) {
@@ -42,41 +42,26 @@ export const AuthScreen = observer(() => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>INSTAGRAM</Text>
-
-      <View style={{marginTop: 32}}>
+    <View style={auth_screen_styles.container}>
+      <Text style={auth_screen_styles.title}>INSTAGRAM</Text>
+      <View style={auth_screen_styles.wrapper}>
         <Input
-          value={watch(EAuthForm.USERNAME)}
+          value={watch(EAUTHFORM.USERNAME)}
           placeholder={'username'}
           onChangeText={handleChange}
-          inputKey={EAuthForm.USERNAME}
+          inputKey={EAUTHFORM.USERNAME}
           error={''}
-          // error={errors[EAuthForm.USERNAME]}
         />
         <Input
-          value={watch(EAuthForm.PASSWORD)}
+          value={watch(EAUTHFORM.PASSWORD)}
           placeholder={'password'}
-          inputKey={EAuthForm.PASSWORD}
+          inputKey={EAUTHFORM.PASSWORD}
           onChangeText={handleChange}
           error={''}
-          // error={errors[EAuthForm.PASSWORD]}
           marginTop={0}
         />
-
         <Button title={'Enter'} onPress={handleSubmit(sendData)} />
       </View>
     </View>
   );
-});
-
-export const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  title: {
-    marginTop: 64,
-  },
 });
