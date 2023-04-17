@@ -12,9 +12,7 @@ export const Navigator = observer(() => {
     authStore.isAuth();
   }, [authStore]);
 
-  return (
-    <NavigationContainer>
-      {authStore.token ? <MainStack /> : <AuthStack />}
-    </NavigationContainer>
-  );
+  const content = authStore.token ? <MainStack /> : <AuthStack />;
+
+  return <NavigationContainer>{content}</NavigationContainer>;
 });

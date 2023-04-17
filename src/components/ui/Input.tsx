@@ -1,36 +1,7 @@
-import React, {ReactNode, useRef, useState} from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
-import {Colors} from '../../styles/Colors';
-
-interface IInput {
-  label?: string;
-  placeholder?: string;
-  value?: string | undefined;
-  renderRightAccessory?: any;
-  editable?: boolean;
-  style?: any;
-
-  onChangeText?(value: string, inputKey: string): void;
-
-  handlePressOnIcon?: () => void;
-  icon?: ReactNode;
-  secureTextEntry?: boolean;
-  keyboardType?: any;
-  inputKey: string;
-  error: string | undefined;
-  disabled?: boolean;
-  multiline?: boolean;
-  maxLength?: number;
-  marginTop?: number;
-  iconPadding?: number;
-  shadow?: boolean;
-}
+import React, {useRef, useState} from 'react';
+import {TextInput, TouchableOpacity, View, Text} from 'react-native';
+import {input_styles} from '../styles';
+import {IInput} from '../types';
 
 const Input = ({
   label,
@@ -60,18 +31,22 @@ const Input = ({
     onChangeText(text, inputKey);
   };
 
+  const showSecureHandler = () => {
+    setShowSecure(!showSecure);
+  };
+
   return (
     <View style={{marginTop: marginTop || 8}}>
       {
-        <View style={styles.labelContainer}>
+        <View>
           <Text>{label}</Text>
         </View>
       }
       <View
         style={
           multiline
-            ? [styles.inputContainer, {height: 137}]
-            : [styles.inputContainer, shadow && styles.shadowInput]
+            ? [input_styles.inputContainer, {height: 137}]
+            : [input_styles.inputContainer, shadow && input.shadowInput]
         }
         pointerEvents={!editable ? 'none' : 'auto'}>
         <TextInput
@@ -82,70 +57,22 @@ const Input = ({
           value={value}
           multiline={multiline}
           secureTextEntry={secureTextEntry ? showSecure : false}
-          style={styles.inputStyle}
+          style={input_styles.inputStyle}
           onChangeText={handleChange}
           {...props}
         />
-        {secureTextEntry ? (
-          <TouchableOpacity onPress={() => setShowSecure(!showSecure)}>
-            {/*<IconSvgEye color={Colors.black_54} />*/}
-          </TouchableOpacity>
-        ) : null}
-        {icon ? (
+        {secureTextEntry && <TouchableOpacity onPress={showSecureHandler} />}
+        {icon && (
           <TouchableOpacity
             style={{marginLeft: iconPadding || 0}}
             onPress={handlePressOnIcon}>
             {icon}
           </TouchableOpacity>
-        ) : null}
+        )}
       </View>
-      {error ? (
-        <Text style={{color: Colors.red, marginTop: 6}}>{error}</Text>
-      ) : null}
+      {error && <Text style={input_styles.text}>{error}</Text>}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    height: 42,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingRight: 16,
-    backgroundColor: Colors.light_gray,
-    borderColor: Colors.gray,
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-  shadowInput: {
-    shadowOffset: {width: 0, height: 2},
-    shadowColor: Colors.gray,
-    shadowRadius: 8,
-    shadowOpacity: 1,
-    elevation: 2,
-  },
-  inputStyle: {
-    flex: 1,
-    height: '100%',
-    fontSize: 16,
-    lineHeight: 22,
-    color: Colors.black,
-  },
-  labelContainer: {
-    // zIndex: 1,
-    // position: 'absolute',
-    // left: 0,
-    // top: -13,
-  },
-  labelLine: {
-    left: 0,
-    right: 0,
-    position: 'absolute',
-    top: 8,
-    height: 1,
-    backgroundColor: Colors.white,
-  },
-});
 
 export default Input;

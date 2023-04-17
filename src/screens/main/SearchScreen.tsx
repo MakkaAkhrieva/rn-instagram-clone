@@ -1,22 +1,16 @@
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {DataHelper} from '../../heplers/DataHelper';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
+import {search_screen_styles} from '../styles';
 
 export const SearchScreen = () => {
   return (
     <ScrollView>
-      <View style={styles.flexRow}>
-        <View style={styles.topLeftContainer}>
+      <View style={search_screen_styles.flexRow}>
+        <View style={search_screen_styles.topLeftContainer}>
           {[...Array(4)].map((_, index) => (
             <TouchableOpacity key={index}>
               <Image
-                style={styles.smallImage}
+                style={search_screen_styles.smallImage}
                 source={{
                   uri: 'http://placeimg.com/640/480/nature',
                 }}
@@ -24,22 +18,20 @@ export const SearchScreen = () => {
             </TouchableOpacity>
           ))}
         </View>
-
         <View>
           <Image
-            style={styles.highImage}
+            style={search_screen_styles.highImage}
             source={{
               uri: 'http://placeimg.com/640/480/city',
             }}
           />
         </View>
       </View>
-
-      <View style={styles.centerContainer}>
+      <View style={search_screen_styles.centerContainer}>
         {[...Array(6)].map((_, index) => (
           <TouchableOpacity key={index}>
             <Image
-              style={styles.smallImage}
+              style={search_screen_styles.smallImage}
               source={{
                 uri: 'http://placeimg.com/640/480/abstract',
               }}
@@ -47,21 +39,20 @@ export const SearchScreen = () => {
           </TouchableOpacity>
         ))}
       </View>
-
-      <View style={styles.flexRow}>
-        <View style={styles.bottomLeft}>
+      <View style={search_screen_styles.flexRow}>
+        <View style={search_screen_styles.bottomLeft}>
           <Image
-            style={styles.bigImage}
+            style={search_screen_styles.bigImage}
             source={{
               uri: 'http://placeimg.com/640/480/business',
             }}
           />
         </View>
-        <View style={styles.bottomRight}>
+        <View style={search_screen_styles.bottomRight}>
           {[...Array(2)].map((_, index) => (
             <TouchableOpacity key={index}>
               <Image
-                style={styles.smallImage}
+                style={search_screen_styles.smallImage}
                 source={{
                   uri: 'http://placeimg.com/640/480',
                 }}
@@ -73,52 +64,3 @@ export const SearchScreen = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  flexRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  smallImage: {
-    width: DataHelper.getWidth() * 0.33,
-    height: DataHelper.getWidth() * 0.33,
-    marginTop: DataHelper.getWidth() * 0.003,
-    marginLeft: DataHelper.getWidth() * 0.003,
-  },
-  topLeftContainer: {
-    width: DataHelper.getWidth() * 0.667,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  highImage: {
-    width: DataHelper.getWidth() * 0.33,
-    height: DataHelper.getWidth() * 0.66,
-    marginTop: DataHelper.getWidth() * 0.003,
-    marginLeft: DataHelper.getWidth() * 0.003,
-  },
-  bigImage: {
-    width: DataHelper.getWidth() * 0.663,
-    height: DataHelper.getWidth() * 0.663,
-    marginTop: DataHelper.getWidth() * 0.003,
-    marginRight: DataHelper.getWidth() * 0.003,
-  },
-  centerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  bottomLeft: {
-    width: DataHelper.getWidth() * 0.66,
-    height: DataHelper.getWidth() * 0.66,
-    marginRight: DataHelper.getWidth() * 0.003,
-    marginLeft: DataHelper.getWidth() * 0.006,
-  },
-  bottomRight: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

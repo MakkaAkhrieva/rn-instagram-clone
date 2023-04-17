@@ -1,4 +1,4 @@
-export enum Screens {
+export enum SCREENS {
   BOTTOM = 'BOTTOM',
 
   //MAIN
